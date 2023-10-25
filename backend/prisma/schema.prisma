@@ -17,3 +17,12 @@ model Messages {
 
   @@map("messages")
 }
+
+model Users {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  username String @unique
+  password String
+
+  @@map("users")
+}

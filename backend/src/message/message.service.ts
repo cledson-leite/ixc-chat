@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Message } from './entities/message.entity';
 import { PrismaService } from '../prisma/prisma.service';
-import { BuilderMessageDto } from './dto/bulder-message.dto';
+import { BuilderMessageDto } from './dto/builder-message.dto';
 
 @Injectable()
 export class MessageService {

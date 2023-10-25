@@ -9,8 +9,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { MessageService } from '../message/message.service';
-import { BuilderMessageDto } from '../message/dto/bulder-message.dto';
-
+import { BuilderMessageDto } from '../message/dto/builder-message.dto';
 @WebSocketGateway({ cors: true })
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
@@ -40,14 +39,21 @@ export class ChatGateway
     this.server.emit('allMessages');
   }
 
+  @SubscribeMessage('status')
+  handleStatus(client: Socket, payload: boolean): void {
+    this.server.emit('status', payload, client.id);
+  }
+
   afterInit(server: Server): void {
     server;
     this.log.log('Init server socket');
   }
   handleConnection(client: Socket): void {
+    this.server.emit('status', true);
     this.log.log(`Client connected: ${client.id}`);
   }
   handleDisconnect(client: Socket): void {
+    this.server.emit('status', false);
     this.log.log(`Client disconnected: ${client.id}`);
   }
 }
