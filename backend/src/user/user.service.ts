@@ -10,6 +10,7 @@ import { User } from './entities/user.entity';
 import { BuilderUserDto } from './dto/builder-user-dto';
 
 type UserProps = {
+  username: string;
   accessToken: string;
 };
 
@@ -20,18 +21,16 @@ export class UserService {
     private readonly prisma: PrismaService,
   ) {}
   private readonly createToken = (user: User) => {
-    return {
-      accessToken: this.jwtService.sign(
-        {
-          name: user.getName(),
-          username: user.getUsername(),
-        },
-        {
-          expiresIn: '7 days',
-          subject: String(user.getId()),
-        },
-      ),
-    };
+    return this.jwtService.sign(
+      {
+        name: user.getName(),
+        username: user.getUsername(),
+      },
+      {
+        expiresIn: '7 days',
+        subject: String(user.getId()),
+      },
+    );
   };
   async create(user: User): Promise<UserProps> {
     const ExistedUser = await this.prisma.users.findUnique({
@@ -55,7 +54,10 @@ export class UserService {
         .addUsername(newUser.username)
         .addPassword(newUser.password)
         .build();
-      return this.createToken(dto);
+      return {
+        username: dto.getUsername(),
+        accessToken: this.createToken(dto),
+      };
     } catch (error) {
       throw new BadRequestException('Usuário e/ou Senha invalidos');
     }
@@ -76,6 +78,9 @@ export class UserService {
       .addUsername(user.username)
       .addPassword(user.password)
       .build();
-    return this.createToken(dto);
+    return {
+      username: dto.getUsername(),
+      accessToken: this.createToken(dto),
+    };
   }
 }
