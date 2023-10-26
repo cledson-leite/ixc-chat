@@ -27,4 +27,13 @@ Aplicação feita durante teste técnico para oportunidade de desenvolvedor back
     // ambosdeve acessar a seguinte URL
 
     http://localhoste:5173
+
+    //no bancode dados ja estão salvos dois usuários
+    //caso queiram cadastrar amis alguns fiquem a vontade
+
+    //username: Cledson
+    //senha T35t3@1
+
+    //username: CledsonLeite
+    //senha T35t3@1
 ```
