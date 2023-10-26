@@ -1,0 +1,14 @@
+.message-container {
+    max-width: 250px;
+    width: fit-content;
+    background-color: lightgrey;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 7px;
+    align-self: start;
+}
+
+.message-mine {
+    align-self: end;
+    background-color: skyblue;
+}

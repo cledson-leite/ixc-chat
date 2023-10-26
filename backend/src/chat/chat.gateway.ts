@@ -28,17 +28,6 @@ export class ChatGateway
     this.server.emit('msgToClient', payload);
   }
 
-  @SubscribeMessage('allMessages')
-  handleMessages(): void {
-    this.service.getAll();
-  }
-
-  @SubscribeMessage('removeMessage')
-  handleDelete(client: Socket, payload: string): void {
-    this.service.remove(payload);
-    this.server.emit('allMessages');
-  }
-
   @SubscribeMessage('status')
   handleStatus(client: Socket, payload: boolean): void {
     this.server.emit('status', payload, client.id);
