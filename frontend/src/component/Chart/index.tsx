@@ -16,7 +16,6 @@ export const Chat: React.FC = () => {
   const [messageList, setMessageList] = useState<Message[]>([])
     const updateList = useCallback( async () => {
         const list = await allMessage()
-        console.log(list)
         setMessageList(list)
     }, [])
     useEffect(()=>{
